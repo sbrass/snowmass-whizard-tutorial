@@ -1,0 +1,3 @@
+* Example: ee2Hqq_380GeV_posPol_SM.sin
+
+  Taken from CLIC example repository (private), reference: Ulrike Schnorr.
