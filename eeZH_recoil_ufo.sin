@@ -1,0 +1,30 @@
+# Higgs Recoil with 2HDM as h -> ff and h -> XX
+# Author: Daniel Jeans
+model = "2HDM" (ufo)
+
+!! Create param_card.dat and remove all QNUMBERS blocks:
+!!   https://answers.launchpad.net/whizard/+question/692572
+read_slha ("2HDM/parameters.slha")
+
+mh1 = 125 GeV
+mh2 = 40 GeV
+mh3 = 40 GeV
+
+process eemumuhh = "e-" , "e+" => "mu+", "mu-", "h2" , "h3" { $restrictions = "3+4~Z && 5+6~h1" }
+process h2dec = h2 => "vm" , "vm~", "vt", "vt~"
+process h3dec = h3 => "b" , "b~"
+
+unstable h2(h2dec)
+unstable h3(h3dec)
+
+beams = "e-" , "e+"
+sqrts = 250 GeV
+beams_pol_density = @(-1), @(+1)
+beams_pol_fraction = 100%, 100%
+
+integrate (eemumuhh)
+
+n_events = 50
+$sample = "eeZH_recoil_ufo"
+sample_format = stdhep, lcio
+simulate (eemumuhh)

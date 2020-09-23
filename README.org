@@ -1,3 +1,9 @@
 * Example: ee2Hqq_380GeV_posPol_SM.sin
 
   Taken from CLIC example repository (private), reference: Ulrike Schnorr.
+
+* Example: eeZH_recoil_ufo
+
+  - Author :: Daniel Jeans
+  - UFO model :: https://feynrules.irmp.ucl.ac.be/raw-attachment/wiki/2HDM/2HDM_UFO.tar.gz
+  
