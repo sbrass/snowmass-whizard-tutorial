@@ -1,0 +1,42 @@
+# Simple complete physics example: W endpoint in the Standard Model
+#   e+ e- => μ anti-ν q Q
+# Manual:
+#   - 5.6.1 Initial state polarization
+model = SM
+
+alias q = u:c
+alias Q = D:S
+
+process eemunumqq = e1, E1 => e2, N2, q, Q
+
+compile
+
+# We set the muon mass to zero.
+mmu = 0
+mc = 0
+ms = 0
+
+cuts = all M > 10 GeV [q, Q]
+         and all E > 5 GeV [q:Q:e2]
+
+sqrts = 500 GeV
+beams = e1, E1
+
+integrate (eemunumqq)
+
+n_events = 10000
+$sample = "eenunumqq_nopol"
+sample_format = stdhep
+simulate (eemunumqq)
+
+beams_pol_density = @(-1), @(+1)
+beams_pol_fraction = 80%, 30%
+
+integrate (eemunumqq)
+
+n_events = 10000
+$sample = "eenunumqq_pol"
+sample_format = stdhep
+simulate (eemunumqq)
+
+show(results)
