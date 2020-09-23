@@ -1,0 +1,47 @@
+# Simple complete physics example: Higgs search at LEP
+#
+# Reference example: https://arxiv.org/pdf/0710.2602.pdf
+# OPAL+LEP: https://arxiv.org/pdf/hep-ex/0206022.pdf
+
+model = SM
+
+alias n = n1:n2:n3
+alias N = N1:N2:N3
+alias q = u:d:s:c
+alias Q = U:D:S:C
+
+# The Higgsstrahlung process
+process zh = e1, E1 => Z, h
+# The missing-energy channel
+process nnbb = e1, E1 => n, N, b, B
+# Other channels (for the 4-jet channels
+# we combine EW and QCD contributions)
+process qqbb = e1, E1 => q, Q, b, B
+process bbbb = e1, E1 => b, B, b, B
+process eebb = e1, E1 => e1, E1, b, B
+process qqtt = e1, E1 => q, Q, e3, E3
+process bbtt = e1, E1 => b, B, e3, E3
+
+compile
+
+sqrts = 250 GeV
+
+mH = 125.10 GeV
+wH = 3.835 MeV
+mb = 4.3 GeV
+me = 0
+ms = 0
+mc = 0
+
+cuts = all M >= 10 GeV [q,Q]
+
+integrate (zh) { iterations = 5:5000}
+
+integrate(nnbb,qqbb,bbbb,eebb,
+          qqtt,bbtt) { iterations = 12:20000, 1:30000 }
+
+n_events = 10000
+$sample = "eeZH_recoil"
+sample_format = stdhep
+simulate (nnbb, qqbb) 
+
