@@ -1,33 +1,15 @@
-# Simple CIRCE2 examples
-########################################################################
-#
-# Copyright (C) 1999-2020 by 
-#     Wolfgang Kilian <kilian@physik.uni-siegen.de>
-#     Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
-#     Juergen Reuter <juergen.reuter@desy.de>
-#     with contributions from
-#     cf. main AUTHORS file
-#
-# WHIZARD is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by 
-# the Free Software Foundation; either version 2, or (at your option)
-# any later version.
-#
-# WHIZARD is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-########################################################################
+# CIRCE2 example for ILC @ 350 GeV and 500 GeV
+#   e+ e- => t T
+#   Beamstrahlung: e1 A => e1 A t T
+
+# Manual:
+#   - 5.5.7 :: Lepton Collider Beamstrahlung
+#   - 10.3.2 :: CIRCE2
+#   - 5.5.6 ::Lepton Collider ISR structure functions
+#   - 10.4 :: Transverse momentum for ISR photons
+# More technical details in the CIRCE2 manual.
 
 model = SM
-
-$description = "$e^+ e^- \to t\bar t$ w/beamstrahlung from CIRCE2"
-$x_label = "$\sqrt{s_{t\bar t}}$"
 
 process ttbar = "e-", "e+" => t, tbar
 compile
@@ -39,21 +21,26 @@ $circe2_design = "ILC"
 ?circe2_polarized = false
 
 iterations = 5:10000, 2:20000 
-n_events = 10000
+integrate (ttbar)
 
-########################################################################
+n_events = 10000
+sample_format = stdhep
+simulate (ttbar) {
+  $sample = "ilc350+spectra"
+}
+
+beams = e1, E1 => circe2 => isr
+isr_alpha = 1 / 137.035999084 !! α(0)
+!! isr_order = 3
+isr_mass = 0.51099895000 MeV
+!! isr_q_max = sqrts
 
 integrate (ttbar)
 
-$title = "ILC\,350"
-histogram ilc350 (346, 351, 0.1)
-
+?isr_handler = true
+$isr_handler_mode = "recoil"
 simulate (ttbar) {
-  $sample = "ilc350"
-  analysis = record ilc350 (eval M / 1 GeV [combine[t,tbar]])
+  $sample = "ilc350+spectra+isr"
 }
 
-########################################################################
-
-write_analysis
-compile_analysis { $out_file = "circe2.dat" }
+show(results)
