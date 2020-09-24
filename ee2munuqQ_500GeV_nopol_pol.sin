@@ -11,13 +11,17 @@ process eemunumqq = e1, E1 => e2, N2, q, Q
 
 compile
 
-# We set the muon mass to zero.
+!! Set muon mass to zero.
+!! Set mass of strange and charm quark to zero for phase-space alias.
 mmu = 0
 mc = 0
 ms = 0
 
+!! Avoid divergencies and enhance convergence of the integration.
 cuts = all M > 10 GeV [q, Q]
-         and all E > 5 GeV [q:Q:e2]
+         and all E > 5 GeV [q]
+         and all E > 5 GeV [Q]
+         and all E > 5 GeV [e2]
 
 sqrts = 500 GeV
 beams = e1, E1
@@ -25,8 +29,8 @@ beams = e1, E1
 integrate (eemunumqq)
 
 n_events = 10000
-$sample = "eenunumqq_nopol"
-sample_format = stdhep
+$sample = "eenunumqq_500GeV_nopol"
+sample_format = stdhep, lcio
 simulate (eemunumqq)
 
 beams_pol_density = @(-1), @(+1)
@@ -35,8 +39,8 @@ beams_pol_fraction = 80%, 30%
 integrate (eemunumqq)
 
 n_events = 10000
-$sample = "eenunumqq_pol"
-sample_format = stdhep
+$sample = "eenunumqq_500GeV_pol"
+sample_format = stdhep, lcio
 simulate (eemunumqq)
 
 show(results)
