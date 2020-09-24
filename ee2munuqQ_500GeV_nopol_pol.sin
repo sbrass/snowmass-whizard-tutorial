@@ -28,7 +28,9 @@ beams = e1, E1
 
 integrate (eemunumqq)
 
-n_events = 10000
+!! n_events = 10000
+!! Use 1 / 10th of luminosity
+luminosity = 500 / 10 / 1 fbarn !! default unit is fb⁻¹
 $sample = "eenunumqq_500GeV_nopol"
 sample_format = stdhep, lcio
 simulate (eemunumqq)
@@ -38,7 +40,9 @@ beams_pol_fraction = 80%, 30%
 
 integrate (eemunumqq)
 
-n_events = 10000
+!! n_events = 10000
+!! Use 1 / 10th of luminosity.
+luminosity = 500 / 10 / 1 fbarn !! default unit is fb⁻¹
 $sample = "eenunumqq_500GeV_pol"
 sample_format = stdhep, lcio
 simulate (eemunumqq)
