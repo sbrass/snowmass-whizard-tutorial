@@ -33,15 +33,17 @@ me = 0
 ms = 0
 mc = 0
 
-cuts = all M >= 10 GeV [q,Q]
+cuts = all M > 10 GeV [q,Q]
+          and all E > 5 GeV []
 
 integrate (zh) { iterations = 5:5000}
 
 integrate(nnbb,qqbb,bbbb,eebb,
           qqtt,bbtt) { iterations = 12:20000, 1:30000 }
 
-n_events = 10000
+!! n_events = 10000
+luminosity = 250 / 10 / 1 fbarn
 $sample = "eeZH_recoil"
-sample_format = stdhep
+sample_format = stdhep, lcio
 simulate (nnbb, qqbb) 
 
