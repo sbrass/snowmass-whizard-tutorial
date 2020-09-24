@@ -1,0 +1,46 @@
+# Higgs Recoil with 2HDM as h -> ff and h -> XX
+# Author: Daniel Jeans
+model = "2HDM" (ufo)
+
+!! Show particle content and couplings of '2HDM'
+show (model) 
+
+mh1 = 125 GeV
+mh2 = 40 GeV
+mh3 = 40 GeV
+
+process eemumuhh = "e-" , "e+" => "mu+", "mu-", "h2" , "h3" { $restrictions = "3+4~Z && 5+6~h1" }
+process h2dec = h2 => "vm" , "vm~", "vt", "vt~"
+process h3dec = h3 => "b" , "b~"
+
+unstable h2(h2dec)
+unstable h3(h3dec)
+
+!! Set mass for incoming beam particle for ISR (before beams statement).
+!! Set α(0) for ISR splitting
+isr_mass = 0.5109989500E-03 GeV
+isr_alpha = 1/137.035999084
+!! isr_order = 3
+!! isr_q_max = sqrts
+
+beams = "e-", "e+" => circe2 => isr
+
+$circe2_file = "ilc250.circe"
+$circe2_design = "ILC"
+?circe2_polarized = false
+
+beams_pol_density = @(-1), @(+1)
+beams_pol_fraction = 80%, 30%
+
+sqrts = 250 GeV
+
+integrate (eemumuhh)
+
+n_events = 50
+$sample = "eeZH_recoil_ufo"
+sample_format = stdhep, lcio
+!! Generate events with exclusive ISR photons.
+?isr_handler = true
+$isr_handler_mode = "recoil"
+
+simulate (eemumuhh)

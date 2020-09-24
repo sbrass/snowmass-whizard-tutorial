@@ -1,3 +1,34 @@
+* MC/Simulation Framework Tutorial: Whizard for e+e-
+  
+  Event: https://indico.fnal.gov/event/45413/overview
+  
+* Preparations
+
+  1) Requires an account: https://connect.snowmass21.io/profile
+  2) https://maniaclab.uchicago.edu/snowmass-connect-docs/
+
+  The environment setup for WHIZARD and WHIZARD itself is already present and must be loaded accordingly.
+  https://maniaclab.uchicago.edu/snowmass-connect-docs/software/
+
+  Else, you can download WHIZARD from https://whizard.hepforge.org and install it.
+  We only require LCIO as external package, run WHIZARD configuration with =--enable-lcio LCIO_DIR=<path to LCIO installation path>=.
+
+** Local-scratch
+
+   #+begin_export ascii
+   module use /local-scratch/software/modulefiles/
+    module load gcc-8.2.0 
+    export LD_LIBRARY_PATH=/local-scratch/software/ee_gen/./packages/OpenLoops/lib:$LD_LIBRARY_PATH
+    export PATH=/local-scratch/software/ee_gen/bin:$PATH
+   #+end_export
+
+** CVMFS
+
+   Read-only installation in CVMFS:
+   #+begin_export ascii
+    /cvmfs/snowmass21.opensciencegrid.org/ee_gg/setup.sh
+   #+end_export
+  
 * Example: ee2Hqq_380GeV_posPol_SM.sin
 
   Taken from CLIC example repository (private), reference: Ulrike Schnorr.
