@@ -1,8 +1,10 @@
-#Example of four jets cross-section at LO using the Cambridge algorithm for jet identification. 
-#Results are normalised to the 2 jets LO cross-section and can be compared directly to Phys.Rev. D59 (1999) 014020. 
+# Example of four jets cross-section at LO using the Cambridge algorithm for jet identification. 
+#   Results are normalised to the 2 jets LO cross-section
+#   and can be compared directly to Phys.Rev. D59 (1999) 014020. 
 
+model = SM
 
-#Parameters
+# Parameters
 mc = 0
 ms = 0
 mb = 0
@@ -13,10 +15,10 @@ seed = 2222
 sqrts = 91.187 GeV
 scale = sqrts
 
-#Jet definition
+# Jet definition
 alias j = u:d:s:U:D:S:c:C:b:B:gl
 
-#Options
+# Options
 ?vis_channels = true
 ?use_vamp_equivalences = false
 ?alphas_is_fixed = false
@@ -25,11 +27,11 @@ alias j = u:d:s:U:D:S:c:C:b:B:gl
 alphas = 0.118
 !alphas = 0.121
  
-#Processes
+# Processes
 process jj = E1, e1 => j, j 
 process jjjj = E1, e1 => j, j, j, j 
 
-#Jet Algorithm. It uses the EECambridgePlugin of FastJet
+# Jet Algorithm. It uses the EECambridgePlugin of FastJet
 jet_algorithm = plugin_algorithm
 jet_r = 1
 !jet_ycut = 0.001
@@ -37,10 +39,16 @@ jet_r = 1
 #Define Plot and calculate ratio.
 plot R_4 { x_min = 0.0009  x_max = 0.11 ?x_log=true $x_label="$y_{cut}$" ?draw_errors=true $y_label="$\sigma_{jjjj} / \sigma_{jj}$" $title = "Cambridge Algorith LO"}
 
-scan jet_ycut = ((0.001 => 0.003 /+ 0.0001),(0.003 => 0.009 /+ 0.001),(0.01 => 0.03 /+ 0.001),(0.03 => 0.1 /+ 0.01)) {
-integrate (jj) {iterations=5:10000:"gw" cuts = count [cluster if E > 0 GeV [j]] > 1}
-integrate (jjjj) {iterations=5:50000:"gw" cuts = count [cluster if E > 0 GeV [j]] > 3}
-record R_4 (jet_ycut, integral (jjjj) / integral(jj), sqrt((error(jj)/integral(jj))^2 +(error(jjjj)/integral(jjjj))^2)*integral (jjjj) / integral(jj))}
+scan jet_ycut = ((0.001 => 0.003 /+ 0.0001),
+  (0.003 => 0.009 /+ 0.001),
+  (0.01 => 0.03 /+ 0.001),
+  (0.03 => 0.1 /+ 0.01)) {
+    integrate (jj) {iterations=5:10000:"gw" cuts = count [cluster if E > 0 GeV [j]] > 1}
+    integrate (jjjj) {iterations=5:50000:"gw" cuts = count [cluster if E > 0 GeV [j]] > 3}
+    record R_4 (jet_ycut,
+                integral (jjjj) / integral(jj),
+                sqrt((error(jj)/integral(jj))^2 +(error(jjjj)/integral(jjjj))^2)*integral (jjjj) / integral(jj))
+}
 
 compile_analysis { $out_file = "ratio.dat" }  
 
