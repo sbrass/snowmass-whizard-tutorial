@@ -4,11 +4,11 @@ model = "2HDM" (ufo)
 
 !! Create param_card.dat and remove all QNUMBERS blocks:
 !!   https://answers.launchpad.net/whizard/+question/692572
-read_slha ("2HDM/parameters.slha")
+!! read_slha ("2HDM/parameters.slha")
 
 mh1 = 125 GeV
-mh2 = 40 GeV
-mh3 = 40 GeV
+mh2 = 30 GeV
+mh3 = 30 GeV
 
 process eemumuhh = "e-" , "e+" => "mu+", "mu-", "h2" , "h3" { $restrictions = "3+4~Z && 5+6~h1" }
 process h2dec = h2 => "vm" , "vm~", "vt", "vt~"
