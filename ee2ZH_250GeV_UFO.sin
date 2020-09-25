@@ -25,6 +25,6 @@ beams_pol_fraction = 100%, 100%
 integrate (eemumuhh)
 
 n_events = 50
-$sample = "eeZH_recoil_ufo"
+$sample = "eeZH_recoil_UFO"
 sample_format = stdhep, lcio
 simulate (eemumuhh)
