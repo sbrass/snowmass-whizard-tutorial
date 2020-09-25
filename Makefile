@@ -1,5 +1,13 @@
-.PHONY: clean
-clean:
-	rm -rf circe2/
-	rm -rf eemunumqq/
-	rm -rf eeZH_recoil/
+DIRECTORY=$(basename $(wildcard *.sin))
+
+all: dir
+
+.PHONY: dir
+dir:
+	@echo $(DIRECTORY)
+	mkdir -p $(DIRECTORY)
+
+.PHONY: clean-dir
+clean-dir:
+	rm -rf $(DIRECTORY)
+
