@@ -4,7 +4,7 @@
   
 * Preparations for the tutorial
 
-  1) Requires an account: https://connect.snowmass21.io/profile
+  1) Requires either an account connected to OSC or connection to /CVMFS/: https://connect.snowmass21.io/profile
   2) https://maniaclab.uchicago.edu/snowmass-connect-docs/
 
   The environment setup for WHIZARD and WHIZARD itself is already present and needs to be loaded accordingly.
