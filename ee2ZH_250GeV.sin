@@ -34,7 +34,8 @@ ms = 0
 mc = 0
 
 cuts = all M > 10 GeV [q,Q]
-          and all E > 5 GeV []
+          and all E > 5 GeV [q:Q]
+          and all E > 5 GeV [e1:E1]
 
 integrate (zh) { iterations = 5:5000}
 

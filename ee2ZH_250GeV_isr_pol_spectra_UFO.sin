@@ -39,8 +39,8 @@ sqrts = 250 GeV
 
 integrate (eemumuhh)
 
-!! luminosity = 500 / 1 fbarn
-n_events = 50
+!! n_events = 10000
+luminosity = 250 / 10 / 1 fbarn
 $sample = "eeZH_recoil_isr_pol_spectra_UFO"
 sample_format = stdhep, lcio
 

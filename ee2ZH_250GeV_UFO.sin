@@ -24,7 +24,8 @@ beams_pol_fraction = 100%, 100%
 
 integrate (eemumuhh)
 
-n_events = 50
+!! n_events = 10000
+luminosity = 250 / 10 / 1 fbarn
 $sample = "eeZH_recoil_UFO"
 sample_format = stdhep, lcio
 simulate (eemumuhh)
