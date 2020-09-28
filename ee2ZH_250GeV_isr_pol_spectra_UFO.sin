@@ -19,7 +19,7 @@ unstable h3(h3dec)
 
 beams = "e-", "e+" => circe2 => isr
 
-$circe2_file = "ilc250.circe"
+$circe2_file = "250_SetA_ee024.circe"
 $circe2_design = "ILC"
 ?circe2_polarized = false
 
